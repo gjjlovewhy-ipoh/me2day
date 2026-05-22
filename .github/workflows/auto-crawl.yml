@@ -1,24 +1,36 @@
-name: 三合一全自动歌曲爬虫
+name: 三合一每小时定时歌曲爬虫
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
+  # 每小时整点自动触发
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 * * * *'
 
 jobs:
-  run:
+  run_spider:
     runs-on: ubuntu-latest
-    # 强制启用 Node.js 24 运行，解决弃用警告
+    # 强制使用Node24，消除版本弃用警告
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: 拉取仓库代码
+        uses: actions/checkout@v4
+
+      - name: 配置Python环境
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install requests beautifulsoup4
-      - run: python main.py
-      - uses: stefanzweifel/git-auto-commit-action@v5
+
+      - name: 安装依赖包
+        run: |
+          pip install --upgrade pip
+          pip install requests beautifulsoup4
+
+      - name: 执行三合一爬虫
+        run: python main.py
+
+      - name: 自动提交更新结果文件
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 自动更新三合一歌曲资源
+          commit_message: 每小时自动更新三合一歌曲资源数据
