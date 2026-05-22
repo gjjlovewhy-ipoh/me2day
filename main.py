@@ -14,10 +14,10 @@ SITE2_NAME = "corper音乐站"
 SITE2_URL = "https://corper.cn/index.php?page={}&kw=.mp3"
 SITE2_PAGE = range(1, 6)
 
-# 3. mpimg.cn 1-5页（你刚加的）
+# 3. mpimg.cn 1-40页（你刚加的）
 SITE3_NAME = "mpimg音乐站"
 SITE3_URL = "https://mpimg.cn/index.php?page={}&kw=.mp3"
-SITE3_PAGE = range(1, 6)
+SITE3_PAGE = range(1, 41)
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
